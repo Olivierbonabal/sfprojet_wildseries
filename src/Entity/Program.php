@@ -13,9 +13,6 @@ class Program
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $program;
-
     #[ORM\Column(type: 'string', length: 50)]
     private $title;
 
