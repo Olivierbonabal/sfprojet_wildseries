@@ -1,0 +1,69 @@
+{#{% extends 'base.html.twig' %}
+
+{% block title %}Catégories
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1>Liste des catégories</h1>
+
+		<a class="btn btn-sm btn-outline-dark my-4" href="#">Accueil
+		</a>
+		<a class="btn btn-sm btn-dark" href="#">Nouvelle catégorie</a>
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for category in categories %}
+					<tr>
+						<td>{{ category.name }}</td>
+						<td>
+							<a class="btn btn-sm btn-outline-dark" href="#">Afficher</a>
+							<a class="btn btn-sm btn-dark" href="#">Editer</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">Aucun résultat</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}#}
+{% extends 'base.html.twig' %}
+
+{% block title %}All programs
+{% endblock %}
+
+{% block body %}
+{{ dump(categories)}}
+	<div class="row d-flex justify-content-center mt-3">
+		<a href="#" class="btn btn-outline-dark" type="submit" name="btnSearch">Toutes les séries</a>
+	</div>
+	<div class="container">
+		<button class="btn btn-outline-dark mt-5" type="submit" name="btnSearch">Rechercher</button>
+
+		<div class="row my-5 justify-content-center">
+			<h1>Séries de la table PROGRAM</h1>
+		</div>
+			<div>
+				<h2>
+					<a href="#"></a>
+					- Catégorie :
+			</div>
+			<div class="row d-flex justify-content-center mt-5">
+				Aucune série trouvée.
+			</div>
+
+		<a href="{{ path('app_index') }}">
+			Retour à l'accueil
+		</a>
+	</div>
+
+{% endblock %}
