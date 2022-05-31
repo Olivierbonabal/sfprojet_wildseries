@@ -1,39 +1,26 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Program
-{% endblock %}
+{% block title %}Série #{{ program.id }}{% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h1 class="text-center my-3">Détails de la série</h1>
+    <div class="media">
+        <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
+        <div class="media-body">
+            <h1 class="mt-0">{{ program.title }}</h1>
+            <p>{{ program.synopsis }}</p>
+            <p>Catégorie : <a href="{{ path('category_show', {'categoryName': program.category.name}) }}">{{ program.category.name }}</a></p>
+            <h2>Saisons</h2>
+            <ul>
+                {% for season in seasons %}
+                    <li><a href="{{ path('program_season_show', {'program': program.id, 'season': season.id}) }}">Saison {{ season.number }}</a></li>
+                {% endfor %}
+            </ul>
+            <h2>Acteurs :</h2>
+            <hr>
+            <a href="{{ path('program_index') }}">
+                Retour à la liste des programmes
+            </a>
+        </div>
+    </div>
 
-		<table class="table">
-			<tbody>
-				<tr>
-					<th>Id</th>
-					<td>{{ program.id }}</td>
-				</tr>
-				<tr>
-					<th>Title</th>
-					<td>{{ program.title }}</td>
-				</tr>
-				<tr>
-					<th>Synopsis</th>
-					<td>{{ program.summary }}</td>
-				</tr>
-				<tr>
-					<th>Poster</th>
-					<td>{{ program.poster }}</td>
-				</tr>
-			</tbody>
-		</table>
-
-		<div class="row d-flex justify-content-around mt-5">
-			<a href="{{ path('program_index') }}" type="button" class="btn btn-outline-dark">Retour aux Séries</a>
-
-			<a type="button" class="btn btn-outline-warning" href="{{ path }}">Changer de Série</a>
-		</div>
-
-	</div>
 
 {% endblock %}
