@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Program;
 use App\Entity\Category;
 use App\Form\CategoryType;
-use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +23,28 @@ class CategoryController extends AbstractController
         return $this->render('category/index.html.twig', ['categories' => $categories]);
     }
 
+
+    #[Route('/new', name: 'new')]
+    public function new(Request $request, EntityManager $entityManager): Response
+    {
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) { 
+         
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            // return $this->redirectToRoute('category_index');
+        }
+
+        return $this->renderForm('category/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    
     #[Route('/{categoryName}', name: 'show', methods: ['GET'])]
     public function show(string $categoryName, $doctrine): Response
     {
@@ -45,4 +67,5 @@ class CategoryController extends AbstractController
             'programs' => $programs,
         ]);
     }
+
 }
